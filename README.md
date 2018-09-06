@@ -1,5 +1,7 @@
 # corpus-analysis-tools-list
 
+![corpus-analysis.com](https://github.com/IngoKl/corpus-analysis-tools-list/blob/master/img/corpus-analysis.com.png)
+
 This repository contains the code behind the list at [corpus-analysis.com](https://corpus-analysis.com). 
 
 The site is written in old-school PHP and definitely not an example of great software engineering. That being said, you're more than welcome to optimize the code!
