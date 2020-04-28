@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A comprehensive list of tools used in corpus analysis." />
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>Tools for Corpus Linguistics</title>
 
     <!-- Bootstrap -->
@@ -41,11 +41,13 @@
       <p>
       	Please feel free to contribute by <a href="<?php include('config.php'); echo $config_suggest_form; ?>">suggesting new tools</a> or by pointing out mistakes in the data.
       </p>
-
+	
+	<!--
 	<div class="alert alert-info" role="alert">
 	  (<strong>09.2018</strong>) New tools have been added! Also, the code for this site now lives on <a href="https://github.com/IngoKl/corpus-analysis-tools-list/">GitHub</a>.
 	</div>
-
+	-->
+	    
     </div>
 
     <div class="container">
