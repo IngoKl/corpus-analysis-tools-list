@@ -67,7 +67,7 @@
         <p>
 		<iframe
 		style="border: 0; height: 200px; width: 600px;"
-		src="http://matomo.ingokleiber.de/index.php?module=CoreAdminHome&action=optOut&language=de&backgroundColor=&fontColor=&fontSize=&fontFamily="
+		src="https://matomo.ingokleiber.de/index.php?module=CoreAdminHome&action=optOut&language=de&backgroundColor=&fontColor=&fontSize=&fontFamily="
 		></iframe>
         </p>
     </div>
