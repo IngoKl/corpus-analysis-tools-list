@@ -160,9 +160,9 @@ function printTagList ($tag_list) {
 }
 
 /**
-* This function return the number of tools available.
+* This function returns the number of tools available.
 *
-* @param array $shet_data;
+* @param array $sheet_data;
 *
 * @return int The number of tools available.
 */
