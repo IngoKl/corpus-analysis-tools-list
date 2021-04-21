@@ -33,8 +33,8 @@ cookieconsent.run({
                 accept_all_btn : "Accept all",
                 blocks : [
                     {
-                        title : "Cookie usage",
-                        description: 'Your cookie usage disclaimer'
+                        title : "Cookie Usage",
+                        description: ''
                     },
                     {
                         title : "Analytics Cookies (Matomo)",
