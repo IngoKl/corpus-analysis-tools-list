@@ -31,11 +31,10 @@
         <h2>Impressum</h2>
         <p>
           Ingo Kleiber <br>
-          In der Vogelstang, 1 <br>
-          69115 Heidelberg
+          Venloer Str. 453 <br>
+          50825 Köln
         </p>
         <p>
-            +49-6221-5858804<br>
             ingo@kleiber.me
         </p>
 
