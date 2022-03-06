@@ -11,7 +11,7 @@ The actual data is stored in a Google Sheets sheet. This sheet, which effectivel
 
 If you want to **run your own version**, you simply need to change and rename `config.default.php` to `config.php`. Of course, you will have to create your own *Google Sheets* and *Google Forms* if you want to replicate the service. Also, make sure to remove the analytics code and change the copyright/impressum.
 
-If you want to run this on **NGINX** (i.e., the `.htaccess` won't work), remember to add a rewrite rule such as `rewrite ^/tag/([^/]*)$ /index.php?tag=$1 last;`.
+If you want to run this on **NGINX** (i.e., the `.htaccess` won't work), remember to add the rewrite rules such as `rewrite ^/tag/([^/]*)$ /index.php?tag=$1 last;` to the [configuration](https://github.com/IngoKl/corpus-analysis-tools-list/blob/master/corpus-analysis.com.conf).
 
 For a quick and simple development setup, you can use, for example, Matt Rayner's [*DockerLAMP*](https://hub.docker.com/r/mattrayner/lamp/#!): `docker run -p "80:80" -v ${PWD}/app:/app mattrayner/lamp:latest-1804`.
 
