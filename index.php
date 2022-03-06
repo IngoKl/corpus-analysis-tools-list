@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A comprehensive list of tools used in corpus analysis." />
+    <meta name="description" content="A comprehensive list of tools used in corpus compilation and analysis." />
 
     <title>Tools for Corpus Linguistics</title>
 
@@ -31,62 +31,78 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#"><img style="height: 25px;" src="/img/corpus-analysis.com.inv.png" alt="corpus-analysis.com"/></a>
+          <a class="navbar-brand" href="/"><img style="height: 25px;" src="/img/corpus-analysis.com.inv.png" alt="corpus-analysis.com"/></a>
         </div>
       </div>
     </nav>
 
-    <br />
+    <br>
 
     <div class="container">
       <h1>Tools for Corpus Linguistics</h1>
-      <h5>A comprehensive list of <i><?php echo toolNr($sheet_data); ?></i> tools used in corpus analysis.</h5>
+      <p>A hopefully comprehensive list of currently <strong><?php echo toolNr($sheet_data); ?> tools</strong> used in corpus compilation and analysis.<p>
       <p>
-      	Please feel free to contribute by <a href="<?php include('config.php'); echo $config_suggest_form; ?>">suggesting new tools</a> or by pointing out mistakes in the data.
+        <em>This list is kept up to date by its users.</em> Hence, please feel free to contribute by <a href="<?php include('config.php'); echo $config_suggest_form; ?>">suggesting new tools</a>. 
+        You can also make suggestions, e.g., corrections, regarding individual tools by clicking the <span class="editlink">&#9998;</span> symbol. 
+        As this is a non-commercial side (side, side) project, checking and incorporating updates usually takes some time.
       </p>
 	
-	<!--
-	<div class="alert alert-info" role="alert">
-	  (<strong>09.2018</strong>) New tools have been added! Also, the code for this site now lives on <a href="https://github.com/IngoKl/corpus-analysis-tools-list/">GitHub</a>.
-	</div>
-	-->
+    <!--
+    <div class="alert alert-info" role="alert">
+      (<strong>09.2018</strong>) New tools have been added! Also, the code for this site now lives on <a href="https://github.com/IngoKl/corpus-analysis-tools-list/">GitHub</a>.
+    </div>
+    -->
 	    
     </div>
 
     <div class="container">
-    	<div class="tag tag-active"><a href="<?php echo $config_suggest_form; ?>" target="blank">Suggest a Tool</a></div>
+    	<div class="tag tag-active"><a target="_blank" href="<?php echo $config_suggest_form; ?>">Suggest a Tool</a></div>
     </div>
 
-    <hr />
+    <hr>
 
     <div class="container">
-        <h1>Tags</h1>
-        <?php printTagList(genTagList($sheet_data)); ?>
+      <h1>Top <?php echo $config_no_top_tags; ?> Tags</h1>
+      <?php printTagList(genTagListFrequency($sheet_data), $config_no_top_tags); ?>
     </div>
 
-    <hr />
+    <br>
 
     <div class="container">
-      <h1>Tools</h1>
-      <table id="list">
-      </thead> 
-        <tr>
-          <th>Tool</th>
-          <th>Description</th>
-          <th>Categories</th>
-          <th>Platform</th>
-          <th>Pricing</th>
-        </tr>
-      </thead>
-
-      <tbody> 
-        <?php printTableRows($sheet_data); ?>
-      </tbody>
-
-      </table>
+      <p>There is also a comprehensive list of <a href="/tags"><strong>all tags in the database</strong></a>.</p>
     </div>
 
-    <hr />
+    <hr>
+
+    <div class="container">
+      <?php
+        $requested_tag = $_GET['tag'];
+        if (isset($requested_tag)) {
+          $available_tags = genTagListFrequency($sheet_data, 1000);
+
+          if (key_exists($requested_tag, $available_tags)) {
+            echo '<h1>Tools <em>['.$requested_tag.']</em></h1>';
+            printTable($sheet_data);
+          } else {
+            echo '<strong>Tag not found</strong>';
+          }
+       } else {
+         echo '<h1>Tools</h1>';
+         printTable($sheet_data);
+       }
+      ?>
+    </div>
+
+    <div class="container">
+      <p class="lastchanged">
+          <em>Last Updated</em>: <?php printLastChangeDate(); ?>
+      </p>
+      <p>
+          In case you are interested, the data is also available in <a target="_blank" href="/json">JSON format</a>.
+      </p>
+    </div>
+
+    <hr>
 
     <footer class="footer">
       <div class="container">

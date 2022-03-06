@@ -1,2 +1,4 @@
 RewriteEngine On
 RewriteRule ^tag/([^/]*)$ /index.php?tag=$1 [L]
+RewriteRule ^tags$ /tags.php [L]
+RewriteRule ^json$ /json.php [L]

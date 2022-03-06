@@ -1,5 +1,7 @@
 body {
 	padding-top: 50px;
+	font-size: medium;
+	line-height: 1.5;
 }
 
 a {
@@ -31,11 +33,12 @@ th, td {
 
 .tag {
 	background-color: #A31621;
-	max-width: 150px;
-	max-height: 30px;
+	font-size: medium;
+	max-width: 200px;
+	max-height: 50px;
 	padding: 5px;
 	margin: 5px;
-	border-radius: 10px;
+	border-radius: 6px;
 	text-overflow: ellipsis !important;
 	text-align: center;
 	color: #FFFFF2;
@@ -62,4 +65,17 @@ th, td {
 
 .heart {
 	color: #A31621;
+}
+
+.lastchanged {
+	margin-top: 1.5vh;
+}
+
+.editlink {
+	color: #80aaaa;
+}
+
+.badge {
+	background-color: whitesmoke;
+	color: black;
 }

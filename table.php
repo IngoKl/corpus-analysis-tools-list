@@ -1,24 +1,20 @@
 <?php
 if(!ini_set('default_socket_timeout', 15)) echo '<!-- Error: Could not change "default_socket_timeout" -->';
 
-include('config.php');
-
 /**
-* This function generates a list of category tags.
+* This function generates a list of category tags and their frequency.
 *
 * @param array $sheet_data
 *
-* @return array An array with all category tags in the spreadsheet.
+* @return array An array with all category tags and their frequency in the spreadsheet.
 */
-function genTagList ($sheet_data) {
+function genTagListFrequency ($sheet_data) {
 	$sheet_data = array_slice($sheet_data, 1);
 	$tag_list = array();
 	foreach ($sheet_data as $row) {
 		$categories = explode(',', $row[2]);
 		foreach ($categories as $category) {
-			if (!in_array(trim($category), $tag_list)) {
-				$tag_list[] = trim($category);
-			}
+			$tag_list[trim($category)]++;
 		}
 	}
 
@@ -36,6 +32,18 @@ function saveLocalData ($sheet_data) {
 	$local_file = fopen('sheet.txt', 'w');
 	fwrite($local_file, serialize($sheet_data));
 	fclose($local_file);
+}
+
+/**
+* This function prints the date the spreadsheet file was last updated.
+*
+* @param array $sheet_data
+*
+* @return void
+*/
+function printLastChangeDate () {
+	$change_time = filemtime('sheet.txt');
+	echo date("F d, Y.", $change_time);
 }
 
 /**
@@ -74,7 +82,6 @@ function htmlTags ($tag_list) {
 
 }
 
-
 /**
 * This function prints the spreadsheet as rows.
 *
@@ -83,6 +90,7 @@ function htmlTags ($tag_list) {
 * @return void
 */
 function printTableRows ($sheet_data) {
+	include('config.php');
 	unset($sheet_data[0]); //Remove the Headings
 
 	if (isset($_GET["tag"])) {
@@ -90,14 +98,15 @@ function printTableRows ($sheet_data) {
 		foreach ($sheet_data as $row) {
 			$row_cat = array_map('trim', explode(',', $row[2]));
 			if (in_array(trim($tag), $row_cat)) {
+				$tags = htmlTags($row[2]);
+				$edit_link = '<a class="editlink" target="_blank" href="'.$config_suggest_individual_form.'&'.$config_suggest_individual_form_toolfield.'='.$row[0].'">&#9998;</a>';
+
 				echo '<tr>';
 				if (strlen($row[6]) > 0) {
-					echo '<td><a href="'.$row[6].'">'.$row[0].'</a></td>';
+					echo '<td><a href="'.$row[6].'">'.$row[0].'</a> '.$edit_link.'</td>';
 				} else {
-					echo '<td>'.$row[0].'</td>';
+					echo '<td>'.$row[0].' '.$edit_link.'</td>';
 				}
-
-				$tags = htmlTags($row[2]);
 
 				echo '<td>'.$row[1].'</td>';
 				echo '<td>'.$tags.'</td>';
@@ -108,14 +117,15 @@ function printTableRows ($sheet_data) {
 		}
 	} else {
 		foreach ($sheet_data as $row) {
+			$tags = htmlTags($row[2]);
+			$edit_link = '<a class="editlink" target="_blank" href="'.$config_suggest_individual_form.'&'.$config_suggest_individual_form_toolfield.'='.$row[0].'">&#9998;</a>';
+
 			echo '<tr>';
 			if (strlen($row[6]) > 0) {
-				echo '<td><a href="'.$row[6].'">'.$row[0].'</a></td>';
+				echo '<td><a href="'.$row[6].'">'.$row[0].'</a> '.$edit_link.'</td>';
 			} else {
-				echo '<td>'.$row[0].'</td>';
+				echo '<td>'.$row[0].' '.$edit_link.'</td>';
 			}
-
-			$tags = htmlTags($row[2]);
 
 			echo '<td>'.$row[1].'</td>';
 			echo '<td>'.$tags.'</td>';
@@ -127,20 +137,67 @@ function printTableRows ($sheet_data) {
 }
 
 /**
-* This function prints all category tags.
+* This function prints the table;
+*
+* @param void
+*
+* @return void
+*/
+function printTable ($sheet_data) {
+	$table_top = <<<EOD
+	<table id="list">
+	</thead> 
+	  <tr>
+		<th>Tool</th>
+		<th>Description</th>
+		<th>Tags</th>
+		<th>Platforms</th>
+		<th>Pricing</th>
+	  </tr>
+	</thead>
+	<tbody>
+	EOD;
+
+	echo $table_top;
+	printTableRows($sheet_data);
+
+	$table_bottom = <<<EOD
+	</tbody>
+	</table>
+	EOD;
+
+	echo $table_bottom;
+}
+
+/**
+* This function prints the table in CSV format;
+*
+* @param void
+*
+* @return void
+*/
+function printTableJson ($sheet_data) {
+	echo json_encode($sheet_data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+}
+
+/**
+* This function prints the $top_n tags in terms of frequency.
 *
 * @param array $tag_list
 *
 * @return void
 */
-function printTagList ($tag_list) {
-	echo '<div class="tag tag-all"><a href="/">Everything</a></div>';
+function printTagList ($tag_list, $top_n=25) {
+	arsort($tag_list);
+	$tag_list = array_slice($tag_list, 0, $top_n);
+
+	echo '<div class="tag tag-all"><a href="/">All Tags</a></div>';
 
 	if (isset($_GET["tag"])) {
 		$tag = $_GET["tag"];
 	}
 
-	foreach ($tag_list as $tag) {
+	foreach ($tag_list as $tag => $frequency) {
 		if (strlen($tag) > 0) {
 
 			if (strlen($tag) > 22) {
@@ -150,13 +207,32 @@ function printTagList ($tag_list) {
 			}
 
 			if (isset($_GET["tag"]) && $tag == $_GET["tag"]) {
-				echo '<div class="tag tag-active">'.$tag_name.'</div>';
+				echo '<div class="tag tag-active">'.$tag_name.' <span class="badge">'.$frequency.'</span></div>';
 			} else {
 				//echo '<div class="tag"><a href="index.php?tag='.$tag.'">'.$tag.'</a></div>';
-				echo '<div class="tag"><a href="/tag/'.$tag.'#list">'.$tag_name.'</a></div>';
+				echo '<div class="tag"><a href="/tag/'.$tag.'#list">'.$tag_name.'</a> <span class="badge">'.$frequency.'</span></div>';
 			}
 		}
 	}
+}
+
+/**
+* This function prints all category tags.
+*
+* @param array $tag_list
+*
+* @return void
+*/
+function printCompleteTagList ($tag_list) {
+	arsort($tag_list);
+
+	echo '<ul>';
+	foreach ($tag_list as $tag => $frequency) {
+		if (strlen($tag) > 0) {
+			echo '<li><a href="/tag/'.$tag.'">'.$tag.'</a> ('.$frequency.')</li>';
+		}
+	}
+	echo '</ul>';
 }
 
 /**
@@ -170,7 +246,8 @@ function ToolNr ($sheet_data) {
 	return (sizeof($sheet_data) - 1);
 }
 
-
+# Get the data from the spreadsheet
+include('config.php');
 if (loadLocalData($config_max_age)) {
 	$sheet_data = loadLocalData($config_max_age);
 } else {
@@ -188,4 +265,3 @@ if (loadLocalData($config_max_age)) {
 }
 
 ?>
-
