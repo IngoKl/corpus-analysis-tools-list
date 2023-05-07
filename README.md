@@ -13,7 +13,13 @@ If you want to **run your own version**, you simply need to change and rename `c
 
 If you want to run this on **NGINX** (i.e., the `.htaccess` won't work), remember to add the rewrite rules such as `rewrite ^/tag/([^/]*)$ /index.php?tag=$1 last;` to the [configuration](https://github.com/IngoKl/corpus-analysis-tools-list/blob/master/corpus-analysis.com.conf).
 
-For a quick and simple development setup, you can use, for example, Matt Rayner's [*DockerLAMP*](https://hub.docker.com/r/mattrayner/lamp/#!): `docker run -p "80:80" -v ${PWD}/app:/app mattrayner/lamp:latest-1804`.
+## Docker
+
+If you want to develop using Docker, there is a `docker-compose.yml` which will set up a working environment.
+
+First, add `127.0.0.1 corpus-analysis.local` to your `hosts` file. Now run `docker-compose up --build --force-recreate`. You can now browse the website on <http://corpus-analysis.local/>.
+
+For an even quicker and simpler development setup, you can use, for example, Matt Rayner's [*DockerLAMP*](https://hub.docker.com/r/mattrayner/lamp/#!): `docker run -p "80:80" -v ${PWD}/app:/app mattrayner/lamp:latest-1804`.
 
 ## Credit
 

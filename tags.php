@@ -50,7 +50,7 @@
     <footer class="footer">
       <div class="container">
         <p>Compiled with <i class="glyphicon glyphicon-heart heart"></i> by <a href="https://twitter.com/k_berb">Kristin Berberich</a>, <a href="https://kleiber.me">Ingo Kleiber</a>, and many amazing anonymous contributors.</p>
-         <p>&copy; 2020 (<a href="/impressum-privacy-policy">Impressum / Privacy Policy</a>) (<a href="https://github.com/IngoKl/corpus-analysis-tools-list/"><i class="glyphicon glyphicon-wrench"></i> Code</a>)</p>
+         <p>&copy; 2023 (<a href="/impressum-privacy-policy">Impressum / Privacy Policy</a>) (<a href="https://github.com/IngoKl/corpus-analysis-tools-list/"><i class="glyphicon glyphicon-wrench"></i> Code</a>)</p>
       </div>
     </footer>
 

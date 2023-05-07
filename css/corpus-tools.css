@@ -1,6 +1,6 @@
 body {
 	padding-top: 50px;
-	font-size: medium;
+	font-size: 2em;
 	line-height: 1.5;
 }
 
@@ -78,4 +78,9 @@ th, td {
 .badge {
 	background-color: whitesmoke;
 	color: black;
+}
+
+.taglist {
+	padding: 1em;
+	font-size: 1.2em;
 }

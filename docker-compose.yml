@@ -1,0 +1,13 @@
+version: '3'
+services:
+  php:
+          image: php:8-fpm
+          volumes:
+            - ./:/app
+  nginx:
+          image: nginx:latest
+          ports:
+            - 80:80
+          volumes:
+            - ./nginx/docker-compose.conf:/etc/nginx/conf.d/site.conf
+            - ./:/app
