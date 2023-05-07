@@ -285,8 +285,8 @@ if (loadLocalData($config_max_age)) {
 		fclose($handle);
 
 		if ($sheet_data_local == FALSE) {
-			echo 'no local data';
 			saveLocalData($sheet_data_remote);
+			$sheet_data = $sheet_data_remote;
 		} elseif ($sheet_data_remote != $sheet_data_local) {
 			saveLocalData($sheet_data_remote);
 			$sheet_data = $sheet_data_remote;
