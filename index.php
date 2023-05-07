@@ -46,8 +46,7 @@
 		<p>A hopefully comprehensive list of currently <strong><?php echo toolNr($sheet_data); ?> tools</strong> used in corpus compilation and analysis.
 		<p>
 		<p>
-			<em>This list is kept up to date by its users.</em> Hence, please feel free to contribute by <a href="<?php include('config.php');
-																													echo $config_suggest_form; ?>">suggesting new tools</a>.
+			<em>This list is kept up to date by its users.</em> Hence, please feel free to contribute by <a href="<?php include('config.php'); echo $config_suggest_form; ?>">suggesting new tools</a>.
 		</p>
 		<p>
 			You can also make suggestions, e.g., corrections, regarding individual tools by clicking the <span class="editlink">&#9998;</span> symbol.
@@ -55,10 +54,10 @@
 		</p>
 
 		<!--
-	<div class="alert alert-info" role="alert">
-	  (<strong>09.2018</strong>) New tools have been added! Also, the code for this site now lives on <a href="https://github.com/IngoKl/corpus-analysis-tools-list/">GitHub</a>.
-	</div>
-	-->
+		<div class="alert alert-info" role="alert">
+		(<strong>09.2018</strong>) New tools have been added! Also, the code for this site now lives on <a href="https://github.com/IngoKl/corpus-analysis-tools-list/">GitHub</a>.
+		</div>
+		-->
 
 	</div>
 
